@@ -36,7 +36,7 @@ class FakeApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def create_xml_item(self, xml_item, **kwargs):  # noqa: E501
+    def create_xml_item(self, xml_item, **kwargs):    # noqa: E501
         """creates an XmlItem  # noqa: E501
 
         this route creates an XmlItem  # noqa: E501
@@ -52,13 +52,9 @@ class FakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.create_xml_item_with_http_info(xml_item, **kwargs)  # noqa: E501
-        else:
-            (data) = self.create_xml_item_with_http_info(xml_item, **kwargs)  # noqa: E501
-            return data
+        return self.create_xml_item_with_http_info(xml_item, **kwargs)  # noqa: E501
 
-    def create_xml_item_with_http_info(self, xml_item, **kwargs):  # noqa: E501
+    def create_xml_item_with_http_info(self, xml_item, **kwargs):    # noqa: E501
         """creates an XmlItem  # noqa: E501
 
         this route creates an XmlItem  # noqa: E501
@@ -76,17 +72,17 @@ class FakeApi(object):
 
         local_var_params = locals()
 
-        all_params = ['xml_item']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
+        all_params = [
+            'xml_item',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(local_var_params['kwargs']):
             if key not in all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_xml_item" % key
+                    f"Got an unexpected keyword argument '{key}' to method create_xml_item"
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -95,27 +91,31 @@ class FakeApi(object):
                 local_var_params['xml_item'] is None):
             raise ApiValueError("Missing the required parameter `xml_item` when calling `create_xml_item`")  # noqa: E501
 
-        collection_formats = {}
-
         path_params = {}
 
         query_params = []
-
-        header_params = {}
 
         form_params = []
         local_var_files = {}
 
         body_params = None
-        if 'xml_item' in local_var_params:
-            body_params = local_var_params['xml_item']
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/xml', 'application/xml; charset=utf-8', 'application/xml; charset=utf-16', 'text/xml', 'text/xml; charset=utf-8', 'text/xml; charset=utf-16'])  # noqa: E501
-
+        body_params = local_var_params['xml_item']
+        header_params = {
+            'Content-Type': self.api_client.select_header_content_type(
+                [
+                    'application/xml',
+                    'application/xml; charset=utf-8',
+                    'application/xml; charset=utf-16',
+                    'text/xml',
+                    'text/xml; charset=utf-8',
+                    'text/xml; charset=utf-16',
+                ]
+            )
+        }
         # Authentication setting
         auth_settings = []  # noqa: E501
 
+        collection_formats = {}
         return self.api_client.call_api(
             '/fake/create_xml_item', 'POST',
             path_params,
@@ -132,7 +132,7 @@ class FakeApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def fake_outer_boolean_serialize(self, **kwargs):  # noqa: E501
+    def fake_outer_boolean_serialize(self, **kwargs):    # noqa: E501
         """fake_outer_boolean_serialize  # noqa: E501
 
         Test serialization of outer boolean types  # noqa: E501
@@ -148,13 +148,9 @@ class FakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.fake_outer_boolean_serialize_with_http_info(**kwargs)  # noqa: E501
-        else:
-            (data) = self.fake_outer_boolean_serialize_with_http_info(**kwargs)  # noqa: E501
-            return data
+        return self.fake_outer_boolean_serialize_with_http_info(**kwargs)  # noqa: E501
 
-    def fake_outer_boolean_serialize_with_http_info(self, **kwargs):  # noqa: E501
+    def fake_outer_boolean_serialize_with_http_info(self, **kwargs):    # noqa: E501
         """fake_outer_boolean_serialize  # noqa: E501
 
         Test serialization of outer boolean types  # noqa: E501
@@ -172,17 +168,17 @@ class FakeApi(object):
 
         local_var_params = locals()
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
+        all_params = [
+            'body',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(local_var_params['kwargs']):
             if key not in all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method fake_outer_boolean_serialize" % key
+                    f"Got an unexpected keyword argument '{key}' to method fake_outer_boolean_serialize"
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -193,18 +189,11 @@ class FakeApi(object):
 
         query_params = []
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['*/*'])  # noqa: E501
-
+        body_params = local_var_params.get('body', None)
+        header_params = {'Accept': self.api_client.select_header_accept(['*/*'])}
         # Authentication setting
         auth_settings = []  # noqa: E501
 
@@ -224,7 +213,7 @@ class FakeApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def fake_outer_composite_serialize(self, **kwargs):  # noqa: E501
+    def fake_outer_composite_serialize(self, **kwargs):    # noqa: E501
         """fake_outer_composite_serialize  # noqa: E501
 
         Test serialization of object with outer number type  # noqa: E501
@@ -240,13 +229,9 @@ class FakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.fake_outer_composite_serialize_with_http_info(**kwargs)  # noqa: E501
-        else:
-            (data) = self.fake_outer_composite_serialize_with_http_info(**kwargs)  # noqa: E501
-            return data
+        return self.fake_outer_composite_serialize_with_http_info(**kwargs)  # noqa: E501
 
-    def fake_outer_composite_serialize_with_http_info(self, **kwargs):  # noqa: E501
+    def fake_outer_composite_serialize_with_http_info(self, **kwargs):    # noqa: E501
         """fake_outer_composite_serialize  # noqa: E501
 
         Test serialization of object with outer number type  # noqa: E501
@@ -264,17 +249,17 @@ class FakeApi(object):
 
         local_var_params = locals()
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
+        all_params = [
+            'body',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(local_var_params['kwargs']):
             if key not in all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method fake_outer_composite_serialize" % key
+                    f"Got an unexpected keyword argument '{key}' to method fake_outer_composite_serialize"
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -285,18 +270,11 @@ class FakeApi(object):
 
         query_params = []
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['*/*'])  # noqa: E501
-
+        body_params = local_var_params.get('body', None)
+        header_params = {'Accept': self.api_client.select_header_accept(['*/*'])}
         # Authentication setting
         auth_settings = []  # noqa: E501
 
@@ -316,7 +294,7 @@ class FakeApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def fake_outer_number_serialize(self, **kwargs):  # noqa: E501
+    def fake_outer_number_serialize(self, **kwargs):    # noqa: E501
         """fake_outer_number_serialize  # noqa: E501
 
         Test serialization of outer number types  # noqa: E501
@@ -332,13 +310,9 @@ class FakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.fake_outer_number_serialize_with_http_info(**kwargs)  # noqa: E501
-        else:
-            (data) = self.fake_outer_number_serialize_with_http_info(**kwargs)  # noqa: E501
-            return data
+        return self.fake_outer_number_serialize_with_http_info(**kwargs)  # noqa: E501
 
-    def fake_outer_number_serialize_with_http_info(self, **kwargs):  # noqa: E501
+    def fake_outer_number_serialize_with_http_info(self, **kwargs):    # noqa: E501
         """fake_outer_number_serialize  # noqa: E501
 
         Test serialization of outer number types  # noqa: E501
@@ -356,17 +330,17 @@ class FakeApi(object):
 
         local_var_params = locals()
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
+        all_params = [
+            'body',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(local_var_params['kwargs']):
             if key not in all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method fake_outer_number_serialize" % key
+                    f"Got an unexpected keyword argument '{key}' to method fake_outer_number_serialize"
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -377,18 +351,11 @@ class FakeApi(object):
 
         query_params = []
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['*/*'])  # noqa: E501
-
+        body_params = local_var_params.get('body', None)
+        header_params = {'Accept': self.api_client.select_header_accept(['*/*'])}
         # Authentication setting
         auth_settings = []  # noqa: E501
 
@@ -408,7 +375,7 @@ class FakeApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def fake_outer_string_serialize(self, **kwargs):  # noqa: E501
+    def fake_outer_string_serialize(self, **kwargs):    # noqa: E501
         """fake_outer_string_serialize  # noqa: E501
 
         Test serialization of outer string types  # noqa: E501
@@ -424,13 +391,9 @@ class FakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.fake_outer_string_serialize_with_http_info(**kwargs)  # noqa: E501
-        else:
-            (data) = self.fake_outer_string_serialize_with_http_info(**kwargs)  # noqa: E501
-            return data
+        return self.fake_outer_string_serialize_with_http_info(**kwargs)  # noqa: E501
 
-    def fake_outer_string_serialize_with_http_info(self, **kwargs):  # noqa: E501
+    def fake_outer_string_serialize_with_http_info(self, **kwargs):    # noqa: E501
         """fake_outer_string_serialize  # noqa: E501
 
         Test serialization of outer string types  # noqa: E501
@@ -448,17 +411,17 @@ class FakeApi(object):
 
         local_var_params = locals()
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
+        all_params = [
+            'body',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(local_var_params['kwargs']):
             if key not in all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method fake_outer_string_serialize" % key
+                    f"Got an unexpected keyword argument '{key}' to method fake_outer_string_serialize"
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -469,18 +432,11 @@ class FakeApi(object):
 
         query_params = []
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['*/*'])  # noqa: E501
-
+        body_params = local_var_params.get('body', None)
+        header_params = {'Accept': self.api_client.select_header_accept(['*/*'])}
         # Authentication setting
         auth_settings = []  # noqa: E501
 
@@ -500,7 +456,7 @@ class FakeApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def test_body_with_file_schema(self, body, **kwargs):  # noqa: E501
+    def test_body_with_file_schema(self, body, **kwargs):    # noqa: E501
         """test_body_with_file_schema  # noqa: E501
 
         For this test, the body for this request much reference a schema named `File`.  # noqa: E501
@@ -516,13 +472,9 @@ class FakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.test_body_with_file_schema_with_http_info(body, **kwargs)  # noqa: E501
-        else:
-            (data) = self.test_body_with_file_schema_with_http_info(body, **kwargs)  # noqa: E501
-            return data
+        return self.test_body_with_file_schema_with_http_info(body, **kwargs)  # noqa: E501
 
-    def test_body_with_file_schema_with_http_info(self, body, **kwargs):  # noqa: E501
+    def test_body_with_file_schema_with_http_info(self, body, **kwargs):    # noqa: E501
         """test_body_with_file_schema  # noqa: E501
 
         For this test, the body for this request much reference a schema named `File`.  # noqa: E501
@@ -540,17 +492,17 @@ class FakeApi(object):
 
         local_var_params = locals()
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
+        all_params = [
+            'body',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(local_var_params['kwargs']):
             if key not in all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method test_body_with_file_schema" % key
+                    f"Got an unexpected keyword argument '{key}' to method test_body_with_file_schema"
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -559,27 +511,24 @@ class FakeApi(object):
                 local_var_params['body'] is None):
             raise ApiValueError("Missing the required parameter `body` when calling `test_body_with_file_schema`")  # noqa: E501
 
-        collection_formats = {}
-
         path_params = {}
 
         query_params = []
-
-        header_params = {}
 
         form_params = []
         local_var_files = {}
 
         body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
+        body_params = local_var_params['body']
+        header_params = {
+            'Content-Type': self.api_client.select_header_content_type(
+                ['application/json']
+            )
+        }
         # Authentication setting
         auth_settings = []  # noqa: E501
 
+        collection_formats = {}
         return self.api_client.call_api(
             '/fake/body-with-file-schema', 'PUT',
             path_params,
@@ -596,7 +545,7 @@ class FakeApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def test_body_with_query_params(self, query, body, **kwargs):  # noqa: E501
+    def test_body_with_query_params(self, query, body, **kwargs):    # noqa: E501
         """test_body_with_query_params  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -612,13 +561,9 @@ class FakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.test_body_with_query_params_with_http_info(query, body, **kwargs)  # noqa: E501
-        else:
-            (data) = self.test_body_with_query_params_with_http_info(query, body, **kwargs)  # noqa: E501
-            return data
+        return self.test_body_with_query_params_with_http_info(query, body, **kwargs)  # noqa: E501
 
-    def test_body_with_query_params_with_http_info(self, query, body, **kwargs):  # noqa: E501
+    def test_body_with_query_params_with_http_info(self, query, body, **kwargs):    # noqa: E501
         """test_body_with_query_params  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -636,17 +581,18 @@ class FakeApi(object):
 
         local_var_params = locals()
 
-        all_params = ['query', 'body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
+        all_params = [
+            'query',
+            'body',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(local_var_params['kwargs']):
             if key not in all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method test_body_with_query_params" % key
+                    f"Got an unexpected keyword argument '{key}' to method test_body_with_query_params"
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -659,29 +605,26 @@ class FakeApi(object):
                 local_var_params['body'] is None):
             raise ApiValueError("Missing the required parameter `body` when calling `test_body_with_query_params`")  # noqa: E501
 
-        collection_formats = {}
-
         path_params = {}
 
         query_params = []
         if 'query' in local_var_params:
             query_params.append(('query', local_var_params['query']))  # noqa: E501
 
-        header_params = {}
-
         form_params = []
         local_var_files = {}
 
         body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
+        body_params = local_var_params['body']
+        header_params = {
+            'Content-Type': self.api_client.select_header_content_type(
+                ['application/json']
+            )
+        }
         # Authentication setting
         auth_settings = []  # noqa: E501
 
+        collection_formats = {}
         return self.api_client.call_api(
             '/fake/body-with-query-params', 'PUT',
             path_params,
@@ -698,7 +641,7 @@ class FakeApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def test_client_model(self, body, **kwargs):  # noqa: E501
+    def test_client_model(self, body, **kwargs):    # noqa: E501
         """To test \"client\" model  # noqa: E501
 
         To test \"client\" model  # noqa: E501
@@ -714,13 +657,9 @@ class FakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.test_client_model_with_http_info(body, **kwargs)  # noqa: E501
-        else:
-            (data) = self.test_client_model_with_http_info(body, **kwargs)  # noqa: E501
-            return data
+        return self.test_client_model_with_http_info(body, **kwargs)  # noqa: E501
 
-    def test_client_model_with_http_info(self, body, **kwargs):  # noqa: E501
+    def test_client_model_with_http_info(self, body, **kwargs):    # noqa: E501
         """To test \"client\" model  # noqa: E501
 
         To test \"client\" model  # noqa: E501
@@ -738,17 +677,17 @@ class FakeApi(object):
 
         local_var_params = locals()
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
+        all_params = [
+            'body',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(local_var_params['kwargs']):
             if key not in all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method test_client_model" % key
+                    f"Got an unexpected keyword argument '{key}' to method test_client_model"
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -757,24 +696,18 @@ class FakeApi(object):
                 local_var_params['body'] is None):
             raise ApiValueError("Missing the required parameter `body` when calling `test_client_model`")  # noqa: E501
 
-        collection_formats = {}
-
         path_params = {}
 
         query_params = []
-
-        header_params = {}
 
         form_params = []
         local_var_files = {}
 
         body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
+        body_params = local_var_params['body']
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
             ['application/json'])  # noqa: E501
@@ -782,6 +715,7 @@ class FakeApi(object):
         # Authentication setting
         auth_settings = []  # noqa: E501
 
+        collection_formats = {}
         return self.api_client.call_api(
             '/fake', 'PATCH',
             path_params,
@@ -798,7 +732,7 @@ class FakeApi(object):
             _request_timeout=local_var_params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def test_endpoint_parameters(self, number, double, pattern_without_delimiter, byte, **kwargs):  # noqa: E501
+    def test_endpoint_parameters(self, number, double, pattern_without_delimiter, byte, **kwargs):    # noqa: E501
         """Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트   # noqa: E501
 
         Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트   # noqa: E501
@@ -827,11 +761,7 @@ class FakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.test_endpoint_parameters_with_http_info(number, double, pattern_without_delimiter, byte, **kwargs)  # noqa: E501
-        else:
-            (data) = self.test_endpoint_parameters_with_http_info(number, double, pattern_without_delimiter, byte, **kwargs)  # noqa: E501
-            return data
+        return self.test_endpoint_parameters_with_http_info(number, double, pattern_without_delimiter, byte, **kwargs)  # noqa: E501
 
     def test_endpoint_parameters_with_http_info(self, number, double, pattern_without_delimiter, byte, **kwargs):  # noqa: E501
         """Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트   # noqa: E501

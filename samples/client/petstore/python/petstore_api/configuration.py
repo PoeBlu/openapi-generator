@@ -23,17 +23,17 @@ from six.moves import http_client as httplib
 
 
 class TypeWithDefault(type):
-    def __init__(cls, name, bases, dct):
-        super(TypeWithDefault, cls).__init__(name, bases, dct)
-        cls._default = None
+    def __init__(self, name, bases, dct):
+        super(TypeWithDefault, self).__init__(name, bases, dct)
+        self._default = None
 
-    def __call__(cls):
-        if cls._default is None:
-            cls._default = type.__call__(cls)
-        return copy.copy(cls._default)
+    def __call__(self):
+        if self._default is None:
+            self._default = type.__call__(self)
+        return copy.copy(self._default)
 
-    def set_default(cls, default):
-        cls._default = copy.copy(default)
+    def set_default(self, default):
+        self._default = copy.copy(default)
 
 
 class Configuration(six.with_metaclass(TypeWithDefault, object)):
@@ -62,8 +62,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         # access token for OAuth/Bearer
         self.access_token = ""
         # Logging Settings
-        self.logger = {}
-        self.logger["package_logger"] = logging.getLogger("petstore_api")
+        self.logger = {"package_logger": logging.getLogger("petstore_api")}
         self.logger["urllib3_logger"] = logging.getLogger("urllib3")
         # Log format
         self.logger_format = '%(asctime)s %(levelname)s %(message)s'
@@ -196,11 +195,11 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         :param identifier: The identifier of apiKey.
         :return: The token for api key authentication.
         """
-        if (self.api_key.get(identifier) and
-                self.api_key_prefix.get(identifier)):
-            return self.api_key_prefix[identifier] + ' ' + self.api_key[identifier]  # noqa: E501
-        elif self.api_key.get(identifier):
-            return self.api_key[identifier]
+        if self.api_key.get(identifier):
+            if self.api_key_prefix.get(identifier):
+                return f'{self.api_key_prefix[identifier]} {self.api_key[identifier]}'
+            else:
+                return self.api_key[identifier]
 
     def get_basic_auth_token(self):
         """Gets HTTP basic authentication header (string).
@@ -208,7 +207,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         :return: The token for basic HTTP authentication.
         """
         return urllib3.util.make_headers(
-            basic_auth=self.username + ':' + self.password
+            basic_auth=f'{self.username}:{self.password}'
         ).get('authorization')
 
     def auth_settings(self):
@@ -217,34 +216,30 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         :return: The Auth Settings information dict.
         """
         return {
-            'api_key':
-                {
-                    'type': 'api_key',
-                    'in': 'header',
-                    'key': 'api_key',
-                    'value': self.get_api_key_with_prefix('api_key')
-                },
-            'api_key_query':
-                {
-                    'type': 'api_key',
-                    'in': 'query',
-                    'key': 'api_key_query',
-                    'value': self.get_api_key_with_prefix('api_key_query')
-                },
-            'http_basic_test':
-                {
-                    'type': 'basic',
-                    'in': 'header',
-                    'key': 'Authorization',
-                    'value': self.get_basic_auth_token()
-                },
-            'petstore_auth':
-                {
-                    'type': 'oauth2',
-                    'in': 'header',
-                    'key': 'Authorization',
-                    'value': 'Bearer ' + self.access_token
-                },
+            'api_key': {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'api_key',
+                'value': self.get_api_key_with_prefix('api_key'),
+            },
+            'api_key_query': {
+                'type': 'api_key',
+                'in': 'query',
+                'key': 'api_key_query',
+                'value': self.get_api_key_with_prefix('api_key_query'),
+            },
+            'http_basic_test': {
+                'type': 'basic',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': self.get_basic_auth_token(),
+            },
+            'petstore_auth': {
+                'type': 'oauth2',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': f'Bearer {self.access_token}',
+            },
         }
 
     def to_debug_report(self):
@@ -283,8 +278,8 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         # check array index out of bound
         if index < 0 or index >= len(servers):
             raise ValueError(
-                "Invalid index {} when selecting the host settings. Must be less than {}"  # noqa: E501
-                .format(index, len(servers)))
+                f"Invalid index {index} when selecting the host settings. Must be less than {len(servers)}"
+            )
 
         server = servers[index]
         url = server['url']
@@ -298,10 +293,8 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
                                       variables[variable_name])
                 else:
                     raise ValueError(
-                        "The variable `{}` in the host URL has invalid value {}. Must be {}."  # noqa: E501
-                        .format(
-                            variable_name, variables[variable_name],
-                            server['variables'][variable_name]['enum_values']))
+                        f"The variable `{variable_name}` in the host URL has invalid value {variables[variable_name]}. Must be {server['variables'][variable_name]['enum_values']}."
+                    )
             else:
                 # use default value
                 url = url.replace(

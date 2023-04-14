@@ -36,7 +36,7 @@ class AnotherFakeApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def call_123_test_special_tags(self, body, **kwargs):  # noqa: E501
+    def call_123_test_special_tags(self, body, **kwargs):    # noqa: E501
         """To test special tags  # noqa: E501
 
         To test special tags and operation ID starting with number  # noqa: E501
@@ -52,13 +52,9 @@ class AnotherFakeApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.call_123_test_special_tags_with_http_info(body, **kwargs)  # noqa: E501
-        else:
-            (data) = self.call_123_test_special_tags_with_http_info(body, **kwargs)  # noqa: E501
-            return data
+        return self.call_123_test_special_tags_with_http_info(body, **kwargs)  # noqa: E501
 
-    def call_123_test_special_tags_with_http_info(self, body, **kwargs):  # noqa: E501
+    def call_123_test_special_tags_with_http_info(self, body, **kwargs):    # noqa: E501
         """To test special tags  # noqa: E501
 
         To test special tags and operation ID starting with number  # noqa: E501
@@ -76,17 +72,17 @@ class AnotherFakeApi(object):
 
         local_var_params = locals()
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
+        all_params = [
+            'body',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+        ]
         for key, val in six.iteritems(local_var_params['kwargs']):
             if key not in all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method call_123_test_special_tags" % key
+                    f"Got an unexpected keyword argument '{key}' to method call_123_test_special_tags"
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -95,24 +91,18 @@ class AnotherFakeApi(object):
                 local_var_params['body'] is None):
             raise ApiValueError("Missing the required parameter `body` when calling `call_123_test_special_tags`")  # noqa: E501
 
-        collection_formats = {}
-
         path_params = {}
 
         query_params = []
-
-        header_params = {}
 
         form_params = []
         local_var_files = {}
 
         body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
+        body_params = local_var_params['body']
+        header_params = {
+            'Accept': self.api_client.select_header_accept(['application/json'])
+        }
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
             ['application/json'])  # noqa: E501
@@ -120,6 +110,7 @@ class AnotherFakeApi(object):
         # Authentication setting
         auth_settings = []  # noqa: E501
 
+        collection_formats = {}
         return self.api_client.call_api(
             '/another-fake/dummy', 'PATCH',
             path_params,
